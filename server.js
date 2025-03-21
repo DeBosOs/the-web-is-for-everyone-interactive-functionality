@@ -67,6 +67,43 @@ app.post(…, async function (request, response) {
 // Lokaal is dit poort 8000; als deze applicatie ergens gehost wordt, waarschijnlijk poort 80
 app.set('port', process.env.PORT || 8000)
 
+// homepagina
+app.get('/', async function (request, response) {
+  const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
+  
+  const personResponseJSON = await personResponse.json()
+
+  response.render('index.liquid', { persons: personResponseJSON.data })
+})
+
+app.get('/community-drop', async function (request, response) {
+  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
+  
+  const messagesJSON = await messagesAPI.json()
+
+  response.render('community-drop.liquid', { messages: messagesJSON.data })
+})
+
+app.post('/community-drop/:id', async function (request, response) {
+  await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages', {      // Je stuurt de message naar deze API
+    method: 'POST',                                                                 // Je gebruikt de POST methode
+    body: JSON.stringify({
+      from: `Luc_${request.body.name}`,                                           // Ik gebruikt uit database from, exercise & text (Jules_ zorgt ervoor dat alleen mijn messages gebruikt worden)
+      exercise: request.params.id,                                                  // exercise zorgt ervoor dat bij juiste opdracht bijbehorende drops komen dmv request.params.id
+      text: request.body.community_drop                                             // text zorgt ervoor dat in het 'text' veld in database de geposte content komt
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+
+  response.redirect(303, `/community-drops/${request.params.id}`)                   // zorgt ervoor dat je na de post succesvol doorgelijdt wordt naar de pagina waar de berichten voor die specifieke opdracht worden weergegeven.
+})  
+
+app.use((req, res, next) => {
+  res.status(404).render("error.liquid")
+  })
+
 // Start Express op, gebruik daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console

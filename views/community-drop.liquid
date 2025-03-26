@@ -1,12 +1,14 @@
+{% render 'partials/head.liquid' %}
+
 <main>
     <h2>Nieuwste berichten</h2>
     
-    {% comment %} <form action="">
+    <form action="">
         <label for=""></label>
-    </form> {% endcomment %}
+    </form>
 
     {% for message in messages %}
-        <article>
+        <article class="message">
             <h3>{{ message.from }}</h3>
             <p>{{ message.text }}</p>
         </article> 

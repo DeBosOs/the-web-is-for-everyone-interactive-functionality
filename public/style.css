@@ -4,6 +4,57 @@
     padding: 0;
 }
 
+/* body {
+    background-color: rgba(17,17,17,1);
+} */
+
 article {
     border: 1px solid;
+}
+
+.review-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 15px;
+}
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    resize: vertical;
+    font-size: 16px;
+}
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 15px;
+}
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.later-btn {
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 15px;
+}
+.later-btn:hover {
+    background-color: #0056b3;
 }

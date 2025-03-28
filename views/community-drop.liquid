@@ -3,8 +3,13 @@
 <main>
     <h2>Nieuwste berichten</h2>
     
-    <form action="">
-        <label for=""></label>
+    <form class="review-form">
+        <div class="form-group">
+            <textarea id="review" name="review" placeholder="Laat een community drop achter en verspreid kracht." required></textarea>
+        </div>
+        
+        <button type="submit" class="later-btn">Misschien later</button>
+        <button type="submit" class="submit-btn">Submit Review</button>
     </form>
 
     {% for message in messages %}

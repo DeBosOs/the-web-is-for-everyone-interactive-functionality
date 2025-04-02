@@ -85,6 +85,7 @@ app.get('/schrijfopdracht', async function (request, response) {
 })
 
 app.get('/community-drop', async function (request, response) {
+  console.log("GET community drops")
   const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
   
   const messagesJSON = await messagesAPI.json()
@@ -93,6 +94,7 @@ app.get('/community-drop', async function (request, response) {
 })
 
 app.get('/all-drops', async function (request, response) {
+
   const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
   
   const messagesJSON = await messagesAPI.json()
@@ -101,7 +103,7 @@ app.get('/all-drops', async function (request, response) {
 })
 
 app.post('/messages/', async function (request, response) {
-  console.log(request.body)
+  console.log("POST messages")
   console.log(request.body)
  
   await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages', {

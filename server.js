@@ -92,6 +92,14 @@ app.get('/community-drop', async function (request, response) {
   response.render('community-drop.liquid', { messages: messagesJSON.data })
 })
 
+app.get('/all-drops', async function (request, response) {
+  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
+  
+  const messagesJSON = await messagesAPI.json()
+
+  response.render('all-drops.liquid', { messages: messagesJSON.data })
+})
+
 app.post('/messages/', async function (request, response) {
   console.log(request.body)
   console.log(request.body)

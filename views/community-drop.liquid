@@ -3,9 +3,15 @@
 <main>
     <h2>Nieuwste berichten</h2>
     
-    <form class="review-form">
+    <form method="POST" action="/messages" class="review-form">
+
+    <article id="nameField">
+              <label>Naam</label>
+              <input type="text" name="from" id="fromInput" placeholder="name" required>
+    </article>
+
         <div class="form-group">
-            <textarea id="review" name="review" placeholder="Laat een community drop achter en verspreid kracht." required></textarea>
+            <textarea id="review" name="text" placeholder="Laat een community drop achter en verspreid kracht." required></textarea>
         </div>
         
         <button type="submit" class="later-btn">Misschien later</button>

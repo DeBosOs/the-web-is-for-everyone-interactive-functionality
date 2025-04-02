@@ -76,6 +76,14 @@ app.get('/', async function (request, response) {
   response.render('index.liquid', { persons: personResponseJSON.data })
 })
 
+app.get('/schrijfopdracht', async function (request, response) {
+  const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
+  
+  const personResponseJSON = await personResponse.json()
+
+  response.render('schrijfopdracht.liquid', { persons: personResponseJSON.data })
+})
+
 app.get('/community-drop', async function (request, response) {
   const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
   
@@ -84,21 +92,23 @@ app.get('/community-drop', async function (request, response) {
   response.render('community-drop.liquid', { messages: messagesJSON.data })
 })
 
-app.post('/community-drop/:id', async function (request, response) {
-  await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages', {      // Je stuurt de message naar deze API
-    method: 'POST',                                                                 // Je gebruikt de POST methode
+app.post('/messages/', async function (request, response) {
+  console.log(request.body)
+  console.log(request.body)
+ 
+  await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages', {
+    method: 'POST',
     body: JSON.stringify({
-      from: `Luc_${request.body.name}`,                                           // Ik gebruikt uit database from, exercise & text (Jules_ zorgt ervoor dat alleen mijn messages gebruikt worden)
-      exercise: request.params.id,                                                  // exercise zorgt ervoor dat bij juiste opdracht bijbehorende drops komen dmv request.params.id
-      text: request.body.community_drop                                             // text zorgt ervoor dat in het 'text' veld in database de geposte content komt
+      from: request.body.from,
+      text: request.body.text
     }),
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8'
     }
   });
-
-  response.redirect(303, `/community-drops/${request.params.id}`)                   // zorgt ervoor dat je na de post succesvol doorgelijdt wordt naar de pagina waar de berichten voor die specifieke opdracht worden weergegeven.
-})  
+ // Redirect de gebruiker daarna naar een logische volgende stap
+  response.redirect(303, `/community-drop`);
+})
 
 app.use((req, res, next) => {
   res.status(404).render("error.liquid")
@@ -109,3 +119,4 @@ app.listen(app.get('port'), function () {
   // Toon een bericht in de console
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
 })
+

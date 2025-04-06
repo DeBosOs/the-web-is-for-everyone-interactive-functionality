@@ -1,3 +1,4 @@
+/* general styling */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,7 +9,7 @@ body {
     background-color: #333;
     color: white;
 }
-
+/* community-drop pagina */
 form {
     background-color: black;
 }
@@ -83,4 +84,66 @@ textarea {
 
 .submit-btn:hover, .later-btn:hover {
     background-color: #0056b3;
+}
+
+/* All-drops pagina */
+.drops-section h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+}
+
+.drops-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 80px;
+    list-style: none;
+}
+
+.drop-item {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.drop-date {
+    font-size: 14px;
+    color: #a0a0a0;
+}
+
+.drop-content {
+    line-height: 1.5;
+    font-size: 16px;
 }

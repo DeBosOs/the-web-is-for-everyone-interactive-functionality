@@ -3,8 +3,32 @@
 <main>
     <header>
         <nav>
-            <a href="schrijfopdracht" class="back-button">←</a>
-            <h1>Community drops</h1>
+            <a href="schrijfopdracht">←</a>
         </nav>
     </header>
+
+    <section class="drops-section">
+        <h1>Nieuwste berichten</h1>
+        
+        <ul class="drops-list">
+            {% for message in messages %}
+                <li class="drop-item">
+                    <header class="drop-header">
+                        <figure class="user-info">
+                            <span class="user-avatar"">
+                                {{ message.from | slice: 0, 1 | upcase }}
+                            </span>
+                            <figcaption class="user-details">
+                                <h3>{{ message.from }}</h3>
+                                <time class="drop-date">op {{ message.date_created | date: "%-d %B" }}</time>
+                            </figcaption>
+                        </figure>
+                    </header>
+                    <article class="drop-content">
+                        <p>{{ message.text }}</p>
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 </main>

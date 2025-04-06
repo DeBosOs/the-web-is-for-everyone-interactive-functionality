@@ -69,9 +69,9 @@ app.set('port', process.env.PORT || 8000)
 
 // homepagina
 app.get('/', async function (request, response) {
-  // const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
+  const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
   
-  // const personResponseJSON = await personResponse.json()
+  const personResponseJSON = await personResponse.json()
 
   response.render('index.liquid', { persons: personResponseJSON.data })
 })

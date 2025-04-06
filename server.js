@@ -69,9 +69,9 @@ app.set('port', process.env.PORT || 8000)
 
 // homepagina
 app.get('/', async function (request, response) {
-  const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
+  // const personResponse = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_task')
   
-  const personResponseJSON = await personResponse.json()
+  // const personResponseJSON = await personResponse.json()
 
   response.render('index.liquid', { persons: personResponseJSON.data })
 })
@@ -86,7 +86,7 @@ app.get('/schrijfopdracht', async function (request, response) {
 
 app.get('/community-drop', async function (request, response) {
   console.log("GET community drops")
-  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
+  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages?limit=-1&sort=-date_created')
   
   const messagesJSON = await messagesAPI.json()
 
@@ -95,20 +95,19 @@ app.get('/community-drop', async function (request, response) {
 
 app.get('/all-drops', async function (request, response) {
 
-  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages')
+  const messagesAPI = await fetch ('https://fdnd-agency.directus.app/items/dropandheal_messages?limit=-1&sort=-date_created')
   
   const messagesJSON = await messagesAPI.json()
 
   response.render('all-drops.liquid', { messages: messagesJSON.data })
 })
 
-app.post('/messages/', async function (request, response) {
-  console.log("POST messages")
-  console.log(request.body)
- 
-  await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages', {
+
+/*
+  await fetch('https://fdnd.directus.app/items/messages/', {
     method: 'POST',
     body: JSON.stringify({
+      for: `Team ${teamName}`,
       from: request.body.from,
       text: request.body.text
     }),
@@ -116,6 +115,35 @@ app.post('/messages/', async function (request, response) {
       'Content-Type': 'application/json;charset=UTF-8'
     }
   });
+
+  response.redirect(303, '/')
+
+Directus url: https://fdnd-agency.directus.app/items/dropandheal_messages
+      {
+      "concept": false,
+      "id": 130,
+      "exercise": null,
+      "text": "31/3",
+      "from": "Mikiyas",
+      "date_created": "2025-03-31T19:05:33.153Z"
+    }
+*/
+
+app.post('/messages/', async function (request, response) {
+  console.log("POST messages")
+  console.log(request.body)
+ 
+  const postResponse = await fetch('https://fdnd-agency.directus.app/items/dropandheal_messages?limit=-1', {
+    method: 'POST',
+    body: JSON.stringify({
+      from: request.body.from,
+      text: request.body.text
+    }),
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+  });
+  console.log(postResponse);
  // Redirect de gebruiker daarna naar een logische volgende stap
   response.redirect(303, `/community-drop`);
 })
